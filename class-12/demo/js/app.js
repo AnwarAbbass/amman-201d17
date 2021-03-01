@@ -78,6 +78,8 @@ function handelClick( event ) {
 
       console.log( Goat.all );
     }
+  } else {
+    renderChart();
   }
 }
 
@@ -91,3 +93,42 @@ function randomNumber( min, max ) {
 }
 
 renderNewGoat();
+
+function renderChart() {
+
+  let nameArray = [];
+  let clicksArray = [];
+
+  for(let i = 0; i < Goat.all.length; i++) {
+    nameArray.push(Goat.all[i].name);
+    clicksArray.push(Goat.all[i].clicks);
+
+  }
+
+  let ctx = document.getElementById( 'myChart' ).getContext( '2d' );
+  new Chart( ctx, {
+    type: 'bar',
+    data: {
+      labels: nameArray,
+      datasets: [
+        {
+          label: '# of Votes',
+          data: clicksArray,
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 3
+        }
+      ]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  } );
+}
+
